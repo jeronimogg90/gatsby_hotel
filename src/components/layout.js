@@ -1,56 +1,60 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
+import React from 'react'
+import Header from './header'
+import Footer from './footer'
+import Helmet from 'react-helmet'
+import {Global, css} from '@emotion/react'
 
-import * as React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
-import "./layout.css"
-
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
+const Layout = (props) => {
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: `var(--size-content)`,
-          padding: `var(--size-gutter)`,
-        }}
-      >
-        <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `var(--space-5)`,
-            fontSize: `var(--font-sm)`,
-          }}
-        >
-          © {new Date().getFullYear()} &middot; Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
+      <>
+        <Global 
+            styles={css`
+                html{
+                    font-size: 62.5%;
+                    box-sizing: border-box;
+                }
+                *, *::before, *:after{
+                    box-sizing: inherit;
+                }
+                body{
+                    font-size: 18px;
+                    font-size: 1.8rem;
+                    line-height: 1.5;
+                    font-family: 'PT Sans', sans-serif;
+                }
+                h1{
+                    font-family: 'PT Sans', sans-serif;
+                }
+                h1, h2, h3{
+                    margin: 0;
+                    line-height: 1.5;
+                }
+                h1, h2{
+                    font-family: 'Roboto', serif;
+                }
+                h1{
+                    font-family: 'PT Sans', sans-serif;
+                }
+                ul{
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                }
+            `}
+        />
+        <Helmet>
+            <title>Gatsby Hotel</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+        </Helmet>
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+          <Header />
+            {props.children}
+        <Footer />
+      </>
+    )
 }
 
 export default Layout
